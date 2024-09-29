@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- ***** Breadcrumb Area Start ***** -->
+<div class="breadcumb-area bg-img bg-gradient-overlay"
+  style="background-image: url({% static 'website/img/bg-img/catalogue.jpg' %});">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-12">
+        <h2 class="title">Generic Medicine Catalogue</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="breadcumb--con">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i>Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Generic Medicine Catalogue</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ***** Breadcrumb Area End ***** -->
+
+<!-- Single Widget Area -->
+<div class="col-12 col-lg-5" style="padding-left: 200px;">
+  <div class="dento-sidebar">
+
+    <!-- Single Widget Area -->
+    <div class="single-widget-area search-widget">
+      <form id="searchForm" action="{% url 'catalogue-list' %}" method="post">
+        {% csrf_token %}
+        <input type="search" name="search" class="form-control" placeholder="Search for medicines..." id="searchInput"
+          required>
+        <button type="submit"><i class="icon_search"></i></button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-12">
+    <div id="searchResults" style="text-align: center;">
+      <!-- Search results will be dynamically loaded here -->
+    </div>
+  </div>
+</div>
+<br><br><br>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#searchForm').submit(function (event) {
+      event.preventDefault(); // Prevent default form submission
+
+      var searchQuery = $('#searchInput').val().trim();
+
+      if (searchQuery) {
+        var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
+
+        $.ajax({
+          url: $(this).attr('action'), // Use the form's action URL
+          method: 'POST', // Use POST for sending data
+          data: {
+            search: searchQuery,
+            csrfmiddlewaretoken: csrftoken
+          },
+          success: function (response) {
+            var resultsContainer = $('#searchResults');
+            resultsContainer.empty(); // Clear previous results
+
+            if (response.medicines && response.medicines.length > 0) {
+              // Create a table to display the results
+              var table = $('<table class="table table-bordered"></table>');
+              table.css({
+                'width': '80%', /* Set width to auto to adjust to content */
+                'margin': '0 auto', /* Center-align the table horizontally */
+                'font-size': '16px', /* Increase the font size */
+                'border-collapse': 'collapse' /* Ensure borders collapse */
+              });
+              // Set width and center
+              table.append('<thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Description</th></tr></thead>');
+              var tbody = $('<tbody></tbody>');
+
+              $.each(response.medicines, function (index, medicine) {
+                var row = $('<tr></tr>');
+
+                // Ensure that the image URL is properly constructed
+                var imageUrl = medicine.image ? medicine.image : '/path/to/default/image.jpg'; // Fallback to default image if none
+                row.append('<td style="border: none;"><img src="' + imageUrl + '" alt="' + medicine.name + '" style="width: 400px; height: auto; display: block; margin: 0;"></td>');
+                row.append('<td style="border: 1px solid #ddd; padding: 8px;">' + medicine.name + '</td>');
+                row.append('<td style="border: 1px solid #ddd; padding: 8px;">' + medicine.description + '</td>');
+                row.append('<td style="border: 1px solid #ddd; padding: 8px;">₹ ' + medicine.price + '</td>'); // Display price in rupees
+                tbody.append(row);
+              });
+
+              table.append(tbody);
+              resultsContainer.append(table);
+            } else {
+              resultsContainer.append('<p>No medicines found.</p>');
+            }
+          },
+          error: function () {
+            $('#searchResults').empty().append('<p>An error occurred while fetching medicines.</p>');
+          }
+        });
+      } else {
+        $('#searchResults').empty().append('<p>Please enter a search term.</p>');
+      }
+    });
+  });
+</script>
+
+<!-- <style>
+  /* Additional styles to enhance the table */
+  .table {
+    margin-top: 20px;
+    /* Space above the table */
+    border-collapse: collapse;
+    /* Merge borders */
+  }
+
+  .table th,
+  .table td {
+    padding: 15px;
+    /* Increased padding for table cells */
+    text-align: left;
+    /* Align text to the left */
+  }
+</style> -->
+
+<!-- ***** Blog Area Start ***** -->
+<section class="dento-blog-area section-padding-70-0 clearfix">
+  <div class="container">
+    <div class="row">
+      <!-- Section Heading -->
+      <div class="col-12">
+        <div class="section-heading text-center">
+          <h2>Generic Medicines</h2>
+          <div class="line"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Single Blog Item -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="single-blog-item mb-100">
+          <a href="#">
+            <img src="{% static 'website/img/bg-img/medicine1.jpg' %}" alt="">
+          </a>
+          <!-- Blog Content -->
+          <div class="blog-content">
+            <a href="#" class="post-title">Paracetamol IP 500 MG</a>
+            <p>Paracetamol is a medicine used to treat mild to moderate pain. Paracetamol can also be used to treat
+              fever (high temperature). Paracetamol overdose can damage your liver and cause death.</p>
+            <div class="post-meta">
+              <a href="#" style="color: black;"><i class="icon_clock_alt"></i><b>Rs. 9.80</b></a>
+              <a href="#" style="color: black;"><i class="icon_chat_alt"></i><b>10 tablets</b></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Single Blog Item -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="single-blog-item mb-100">
+          <a href="./blog-details.html">
+            <img src="{% static 'website/img/bg-img/medicine2.jpg' %}" alt="">
+          </a>
+          <!-- Blog Content -->
+          <div class="blog-content">
+            <a href="./blog-details.html" class="post-title">Cefixime DT 200 MG</a>
+            <p>Cefixime 200mg is used to treat a large variety of infections including
+              urinary tract, ear, and lung infections caused by bacteria. Cefixime kills the bacteria and stops their
+              further growth.</p>
+            <div class="post-meta">
+              <a href="#" style="color: black;"><i class="icon_clock_alt"></i><b>Rs. 82.00</b></a>
+              <a href="#" style="color: black;"><i class="icon_chat_alt"></i><b>10 tablets</b></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Single Blog Item -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="single-blog-item mb-100">
+          <a href="./blog-details.html">
+            <img src="{% static 'website/img/bg-img/medicine3.jpg' %}" alt="">
+          </a>
+          <!-- Blog Content -->
+          <div class="blog-content">
+            <a href="./blog-details.html" class="post-title">Aceclofenac 100 MG </a>
+            <p> Aceclofenac is known for its pain-relieving & anti-inflammatory properties, making it
+              effective in alleviating various types of pain, including musculoskeletal pain, arthritis, & dental
+              pain. </p>
+            <div class="post-meta">
+              <a href="#" style="color: black;"><i class="icon_clock_alt"></i><b>Rs. 27.00</b></a>
+              <a href="#" style="color: black;"><i class="icon_chat_alt"></i><b>10 tablets</b></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Single Blog Item -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="single-blog-item mb-100">
+          <a href="./blog_details.html">
+            <img src="{% static 'website/img/bg-img/medicine4.jpg' %}" alt="">
+          </a>
+          <!-- Blog Content -->
+          <div class="blog-content">
+            <a href="./blog_details.html" class="post-title">Aspirin Gastro-Resistant Tab 75 MG</a>
+            <p>Aspirin Gastro-Resistant is a tablet is an antiplatelet medicine used to treat and prevent heart attacks,
+              strokes, and heart-related chest pain. It is very widely used medicine for heart protection.
+            </p>
+            <div class="post-meta">
+              <a href="#" style="color: black;"><i class="icon_clock_alt"></i><b>Rs. 5.49</b></a>
+              <a href="#" style="color: black;"><i class="icon_chat_alt"></i><b>14 tablets</b></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Single Blog Item -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="single-blog-item mb-100">
+          <a href="./blog-details.html">
+            <img src="{% static 'website/img/bg-img/medicine5.jpg' %}" alt="">
+          </a>
+          <!-- Blog Content -->
+          <div class="blog-content">
+            <a href="./blog-details.html" class="post-title">Flucanazole 150 MG</a>
+            <p>Flucanazole 150 MG tablet is also used to prevent candidiasis in patients having bone marrow transplants
+              who receive cancer or radiation treatment. This medicine works by killing the fungus or yeast, or
+              preventing its growth.</p>
+            <div class="post-meta">
+              <a href="#" style="color: black;"><i class="icon_clock_alt"></i><b>Rs. 10.00</b></a>
+              <a href="#" style="color: black;"><i class="icon_chat_alt"></i><b>Strip of 1 Tab</b></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Single Blog Item -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="single-blog-item mb-100">
+          <a href="./blog-details.html">
+            <img src="{% static 'website/img/bg-img/medicine6.jpg' %}" alt="">
+          </a>
+          <!-- Blog Content -->
+          <div class="blog-content">
+            <a href="./blog-details.html" class="post-title">Atenolol 25 MG</a>
+            <p>Atenlol 25mg is indicated in the management of hypertension. It is primarily prescribed for the treatment
+              of hypertension. It may also be used for the
+              management of angina (chest pain) and to prevent heart attacks.</p>
+            <div class="post-meta">
+              <a href="#" style="color: black;"><i class="icon_clock_alt"></i><b>Rs. 10.00</b></a>
+              <a href="#" style="color: black;"><i class="icon_chat_alt"></i><b>14 tablets</b></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="more-btn text-center" style="margin-top: -20px;">
+          <a href="#" class="btn dento-btn">Load More <i class="fa fa-angle-double-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<br><br><br><br>
+<!-- ***** Blog Area End ***** -->
+{% endblock %}

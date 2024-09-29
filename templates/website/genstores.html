@@ -1,0 +1,370 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- ***** Breadcrumb Area Start ***** -->
+<div class="breadcumb-area bg-img bg-gradient-overlay"
+    style="background-image: url({% static 'website/img/bg-img/catalogue.jpg' %});">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <h2 class="title">Generic Medicine Stores</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="breadcumb--con">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Generic Medicine Stores</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** Breadcrumb Area End ***** -->
+
+<div class="row">
+    <div class="col-12 col-lg-5" style="padding-left: 225px;">
+        <div class="form-group">
+            <label for="State">Select State:</label>
+            <select id="ddlState" class="form-control">
+                <option value="">--Select State--</option>
+                <!-- State options -->
+                <option value="ANDAMAN AND NICOBAR ISLANDS">ANDAMAN AND NICOBAR ISLANDS</option>
+                <option value="ANDHRA PRADESH">ANDHRA PRADESH</option>
+                <option value="ARUNACHAL PRADESH">ARUNACHAL PRADESH</option>
+                <option value="ASSAM">ASSAM</option>
+                <option value="BIHAR">BIHAR</option>
+                <option value="CHANDIGARH">CHANDIGARH</option>
+                <option value="CHHATTISGARH">CHHATTISGARH</option>
+                <option value="DELHI">DELHI</option>
+                <option value="GOA">GOA</option>
+                <option value="GUJARAT">GUJARAT</option>
+                <option value="HARYANA">HARYANA</option>
+                <option value="HIMACHAL PRADESH">HIMACHAL PRADESH</option>
+                <option value="JAMMU AND KASHMIR">JAMMU AND KASHMIR</option>
+                <option value="JHARKHAND">JHARKHAND</option>
+                <option value="KARNATAKA">KARNATAKA</option>
+                <option value="KERALA">KERALA</option>
+                <option value="LADAKH">LADAKH</option>
+                <option value="LAKSHADWEEP">LAKSHADWEEP</option>
+                <option value="MADHYA PRADESH">MADHYA PRADESH</option>
+                <option value="MAHARASHTRA">MAHARASHTRA</option>
+                <option value="MANIPUR">MANIPUR</option>
+                <option value="MEGHALAYA">MEGHALAYA</option>
+                <option value="MIZORAM">MIZORAM</option>
+                <option value="NAGALAND">NAGALAND</option>
+                <option value="ODISHA">ODISHA</option>
+                <option value="PUDUCHERRY">PUDUCHERRY</option>
+                <option value="PUNJAB">PUNJAB</option>
+                <option value="RAJASTHAN">RAJASTHAN</option>
+                <option value="SIKKIM">SIKKIM</option>
+                <option value="TAMIL NADU">TAMIL NADU</option>
+                <option value="TELANGANA">TELANGANA</option>
+                <option value="THE DADRA AND NAGAR HAVELI AND DAMAN AND DIU">THE DADRA AND NAGAR HAVELI AND DAMAN AND
+                    DIU</option>
+                <option value="TRIPURA">TRIPURA</option>
+                <option value="UTTAR PRADESH">UTTAR PRADESH</option>
+                <option value="UTTARAKHAND">UTTARAKHAND</option>
+                <option value="WEST BENGAL">WEST BENGAL</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="District">Select District:</label>
+            <select id="ddlDistrict" class="form-control">
+                <option value="">--Select District--</option>
+                <!-- District options will be populated dynamically -->
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-3" style="padding-top: 22px;">
+        <div class="form-group">
+            <button id="loadStores" class="btn dento-btn">Load Store List</button>
+        </div>
+    </div>
+</div>
+
+<!-- Dynamic Store List -->
+<div class="row mt-5">
+    <div class="col-12">
+        <div id="storeList" style="text-align: center;">
+            <!-- Store list will be dynamically loaded here -->
+        </div>
+    </div>
+</div>
+<br><br>
+
+<!-- ***** Blog Area Start ***** -->
+<section class="dento-blog-area section-padding-70-0 clearfix">
+    <div class="container">
+        <div class="row">
+            <!-- Section Heading -->
+            <div class="col-12">
+                <div class="section-heading text-center">
+                    <h2>Popular Generic Medicine Stores</h2>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Single Blog Item -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="single-blog-item mb-100">
+                    <a href="{% url 'blog_details' %}">
+                        <img src="{% static 'website/img/bg-img/store1.jpg' %}" alt="">
+                    </a>
+                    <!-- Blog Content -->
+                    <div class="blog-content">
+                        <a href="./blog_details.html" class="post-title">Bhagat Generic Medicine Store</a>
+                        <p>At. Zirad, Alibag Revas Road, Zirad, Alibaug - 402201 (Near New Vaibhav Hotel)</p>
+                        <div class="post-meta">
+                            <a href="#" style="color: black;"><i class="icon_clock_alt"></i><b>Mon - Sat</b></a>
+                            <a href="#" style="color: black;"><i class="icon_chat_alt"
+                                    style="padding-left: 60px;"></i><b>10:00 am - 6:30 pm</b></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Blog Item -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="single-blog-item mb-100">
+                    <a href="./blog-details.html">
+                        <img src="{% static 'website/img/bg-img/store2.jpg' %}" alt="">
+                    </a>
+                    <!-- Blog Content -->
+                    <div class="blog-content">
+                        <a href="./blog-details.html" class="post-title">Kamothe Generic Medicine Store </a>
+                        <p>Shop No 2, Plot No 6, Sector 6, Infront Of Ramsheth Thakur School, Kamothe, Navi Mumbai,
+                            Maharashtra - 410209</p>
+                        <div class="post-meta">
+                            <a href="#" style="color: black;"><i class="icon_clock_alt"></i><b>Mon - Sat</b></a>
+                            <a href="#" style="color: black;"><i class="icon_chat_alt"
+                                    style="padding-left: 56px;"></i><b>10:00 am - 10:00 pm</b></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Blog Item -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="single-blog-item mb-100">
+                    <a href="./blog-details.html">
+                        <img src="{% static 'website/img/bg-img/store3.jpg' %}" alt="">
+                    </a>
+                    <!-- Blog Content -->
+                    <div class="blog-content">
+                        <a href="./blog-details.html" class="post-title">Asmi Generic Medicine Store</a>
+                        <p> Shop No . 2, Sarasbagh Apartment, Bhaba Nagar Road, Mumbai Naka, Nashik - 422001.</p>
+                        <div class="post-meta">
+                            <a href="#" style="color: black;"><i class="icon_clock_alt"></i><b>Mon - Sat</b></a>
+                            <a href="#" style="color: black;"><i class="icon_chat_alt"
+                                    style="padding-left: 60px;"></i><b>8:00 am - 10:00 pm</b></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Single Blog Item -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="single-blog-item mb-100">
+                    <a href="./blog_details.html">
+                        <img src="{% static 'website/img/bg-img/store4.jpg' %}" alt="">
+                    </a>
+                    <!-- Blog Content -->
+                    <div class="blog-content">
+                        <a href="./blog_details.html" class="post-title">Avishkar Generic Medicine Store</a>
+                        <p>Shop No 10 Sugandh Co-Operative Housing Society Ltd, Secto 7, Kopar, Navi Mumbai -
+                            400709 (Near D-mart) </p>
+                        <div class="post-meta">
+                            <a href="#" style="color: black;"><i class="icon_clock_alt"></i><b>Mon - Sat</b></a>
+                            <a href="#" style="color: black;"><i class="icon_chat_alt"
+                                    style="padding-left: 60px;"></i><b>9:00 am - 9:00 pm</b></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Blog Item -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="single-blog-item mb-100">
+                    <a href="./blog-details.html">
+                        <img src="{% static 'website/img/bg-img/store5.jpg' %}" alt="">
+                    </a>
+                    <!-- Blog Content -->
+                    <div class="blog-content">
+                        <a href="./blog-details.html" class="post-title">Swati Generic Medicine Store</a>
+                        <p>7 Star Cinema Building, Shop Number 41, Near S T Stand , Satara, India, Maharashtra.</p>
+                        <div class="post-meta">
+                            <a href="#" style="color: black;"><i class="icon_clock_alt"></i><b>Mon - Sat</b></a>
+                            <a href="#" style="color: black;"><i class="icon_chat_alt"
+                                    style="padding-left: 60px;"></i><b>9:00 am - 9:00 pm</b></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Blog Item -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="single-blog-item mb-100">
+                    <a href="./blog-details.html">
+                        <img src="{% static 'website/img/bg-img/store6.jpg' %}" alt="">
+                    </a>
+                    <!-- Blog Content -->
+                    <div class="blog-content">
+                        <a href="./blog-details.html" class="post-title">Wagholi Generic Medicine Store</a>
+                        <p>Fadai Chowk, Grampanchayat Rd, near Ganesh Mandir , Wagholi, Pune, 412207, Maharashtra</p>
+                        <div class="post-meta">
+                            <a href="#" style="color: black;"><i class="icon_clock_alt"></i><b>Mon - Sat</b></a>
+                            <a href="#" style="color: black;"><i class="icon_chat_alt"
+                                    style="padding-left: 60px;"></i><b>8:30 am - 8:30 pm</b></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="more-btn text-center" style="margin-top: -20px;">
+                    <a href="#" class="btn dento-btn">Load More <i class="fa fa-angle-double-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br><br><br><br>
+<!-- ***** Blog Area End ***** -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Define the districts for each state
+        var districts = {
+            "ANDAMAN AND NICOBAR ISLANDS": ["Nicobars", "North and Middle Andaman", "South Andamans"],
+            "ANDHRA PRADESH": ["Visakhapatnam", "Vijayawada", "Guntur"],
+            "ARUNACHAL PRADESH": ["Itanagar", "Tawang", "Bomdila"],
+            "ASSAM": ["Guwahati", "Dibrugarh", "Jorhat"],
+            "BIHAR": ["Patna", "Gaya", "Bhagalpur"],
+            "CHANDIGARH": ["Chandigarh"],
+            "CHHATTISGARH": ["Raipur", "Bilaspur", "Durg"],
+            "DELHI": ["New Delhi"],
+            "GOA": ["North Goa", "South Goa"],
+            "GUJARAT": ["Ahmedabad", "Surat", "Vadodara"],
+            "HARYANA": ["Gurugram", "Faridabad", "Ambala"],
+            "HIMACHAL PRADESH": ["Shimla", "Dharamshala"],
+            "JAMMU AND KASHMIR": ["Srinagar", "Jammu"],
+            "JHARKHAND": ["Ranchi", "Jamshedpur"],
+            "KARNATAKA": ["Bengaluru", "Mysuru"],
+            "KERALA": ["Kochi", "Thiruvananthapuram"],
+            "LADAKH": ["Leh"],
+            "LAKSHADWEEP": ["Kavaratti"],
+            "MADHYA PRADESH": ["Bhopal", "Indore"],
+            "MAHARASHTRA": ["Mumbai Suburban", "Mumbai City", "Thane", "Pune", "Nagpur"],
+            "MANIPUR": ["Imphal"],
+            "MEGHALAYA": ["Shillong"],
+            "MIZORAM": ["Aizawl"],
+            "NAGALAND": ["Kohima"],
+            "ODISHA": ["Bhubaneswar", "Cuttack"],
+            "PUDUCHERRY": ["Puducherry"],
+            "PUNJAB": ["Chandigarh", "Ludhiana"],
+            "RAJASTHAN": ["Jaipur", "Udaipur"],
+            "SIKKIM": ["Gangtok"],
+            "TAMIL NADU": ["Chennai", "Coimbatore"],
+            "TELANGANA": ["Hyderabad"],
+            "THE DADRA AND NAGAR HAVELI AND DAMAN AND DIU": ["Daman"],
+            "TRIPURA": ["Agartala"],
+            "UTTAR PRADESH": ["Lucknow", "Kanpur"],
+            "UTTARAKHAND": ["Dehradun"],
+            "WEST BENGAL": ["Kolkata", "Siliguri"]
+        };
+
+        // Populate district dropdown based on selected state
+        $('#ddlState').change(function () {
+            var state = $(this).val();
+            var $ddlDistrict = $('#ddlDistrict');
+            $ddlDistrict.empty();
+            if (state && districts[state]) {
+                $ddlDistrict.append('<option value="">--Select District--</option>');
+                $.each(districts[state], function (index, value) {
+                    $ddlDistrict.append('<option value="' + value + '">' + value + '</option>');
+                });
+            } else {
+                $ddlDistrict.append('<option value="">--Select District--</option>');
+            }
+        });
+
+        // Handle store list button click
+        $('#loadStores').click(function () {
+            var state = $('#ddlState').val();
+            var district = $('#ddlDistrict').val();
+
+            if (state && district) {
+                $.ajax({
+                    url: '{% url 'get_stores' %}',  // Ensure this URL corresponds to your view
+                    method: 'GET',
+                    data: {
+                        state: state,
+                        district: district
+                    },
+                    success: function (response) {
+                        var storeList = $('#storeList');
+                        storeList.empty();
+
+                        if (response.stores && response.stores.length > 0) {
+                            // Create table and add headers
+                            var table = $('<table class="table table-bordered"></table>');
+                            table.css({
+                                'width': '80%', /* Adjust the width as needed */
+                                'margin': '0 auto', /* Center-align the table horizontally */
+                                'font-size': '16px', /* Increase the font size */
+                                'border-collapse': 'collapse' /* Ensure borders collapse */
+                            });
+
+                            var thead = $('<thead><tr><th>Store Code</th><th>State</th><th>District</th><th>Address</th><th>Pincode</th><th>Contact</th></tr></thead>');
+                            var tbody = $('<tbody></tbody>');
+
+                            table.append(thead);
+
+                            // Add rows to the table
+                            $.each(response.stores, function (index, store) {
+                                var row = $('<tr></tr>');
+                                row.append('<td style="border: 1px solid #ddd; padding: 8px;">' + store.store_code + '</td>');
+                                row.append('<td style="border: 1px solid #ddd; padding: 8px;">' + store.store_state + '</td>');
+                                row.append('<td style="border: 1px solid #ddd; padding: 8px;">' + store.store_district + '</td>');
+                                row.append('<td style="border: 1px solid #ddd; padding: 8px;">' + store.store_address + '</td>');
+                                row.append('<td style="border: 1px solid #ddd; padding: 8px;">' + store.store_pincode + '</td>');
+                                row.append('<td style="border: 1px solid #ddd; padding: 8px;">' + store.store_contact + '</td>');
+                                tbody.append(row);
+                            });
+
+                            table.append(tbody);
+                            storeList.append(table);
+                        } else {
+                            storeList.append('<p>No stores found.</p>');
+                        }
+                    },
+
+                    error: function () {
+                        $('#storeList').empty().append('<p>An error occurred while loading stores.</p>');
+                    }
+                });
+            } else {
+                $('#storeList').empty().append('<p>Please select both state and district.</p>');
+            }
+        });
+    });
+</script>
+
+{% endblock %}

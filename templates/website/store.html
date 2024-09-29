@@ -1,0 +1,67 @@
+<!-- templates/store.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>Store List</h1>
+    <button id="loadStores">Load Store List</button>
+    <div id="storeList">
+        <!-- Store list will be dynamically loaded here -->
+    </div>
+
+    <script id="storeListTemplate" type="text/template">
+        <table border="1">
+            <thead>
+                <tr>
+                    <!-- <th>Store ID</th> -->
+                    <th>Store Code</th>
+                    <th>District</th>
+                    <th>Address</th>
+                    <th>Pincode</th>
+                    <th>Contact</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for store in stores %}
+                <tr>
+                    <!-- <td>{{ store.store_id }}</td> -->
+                    <td>{{ store.store_code }}</td>
+                    <td>{{ store.store_district }}</td>
+                    <td>{{ store.store_address }}</td>
+                    <td>{{ store.store_pincode }}</td>
+                    <td>{{ store.store_contact }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#loadStores').click(function () {
+                $.ajax({
+                    url: "{% url 'store' %}",  // URL to fetch the store list
+                    type: "GET",
+                    success: function (data) {
+                        var template = $('#storeListTemplate').html();
+                        var compiled = _.template(template);  // Use Lodash or Underscore.js to compile the template
+                        var rendered = compiled({ stores: data.stores });
+                        $('#storeList').html(rendered);  // Update the placeholder with the fetched data
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Include Lodash for template compilation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+</body>
+
+</html>
