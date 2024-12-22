@@ -45,7 +45,9 @@ This project involves the development of a web platform that will:
 
 The flowchart illustrates how the proposed system works, from input (medicine name) to output (generic alternatives and other related information).
 
-![Block-Diagram](rosplflowchart.png)
+<p align="left">
+  <img src="rosplflowchart.png" width="450"/>
+</p>
 
 ### 2.2 Hardware and Software Requirements
 
